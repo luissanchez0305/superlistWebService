@@ -1,0 +1,7 @@
+{
+    "require": {
+        "monolog/monolog": "1.2.*",
+        "vlucas/spot2": "~2.0",        
+    	"phpmailer/phpmailer": "~5.2"
+    }
+}
