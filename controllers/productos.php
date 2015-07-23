@@ -73,11 +73,11 @@ function loadProducto($producto, $marca, $producto_lugar){
 	$productoModel = new producto();
 	$productoModel->nombre = $producto->nombre;
 	$productoModel->id = $producto->id;
-	$productoModel->imagen = is_null($producto->imagen) ? '/uploads/default.jpg' : '/uploads/users/' . $producto->imagen;
+	$productoModel->imagen = !is_null($producto->imagen) ? '/uploads/users/' . $producto->imagen : '/uploads/default.jpg';
 	$productoModel->marcaId = $marca->id;
 	$productoModel->marcaImagen = $marca->imagen;
 	$productoModel->marcaNombre = $marca->nombre;
-	$productoModel->cantidad = is_null($producto_lugar->cantidad) ? 0 : $producto_lugar->cantidad;
+	$productoModel->cantidad = $producto_lugar && !is_null($producto_lugar->cantidad) ? $producto_lugar->cantidad : 0;
 	
 	return $productoModel;
 }

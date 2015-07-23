@@ -11,7 +11,7 @@ class Usuario extends Mapper
      */
     public function getByEmail($email)
     {
-        return $this->where(['email' => $email]);
+        return $this->where(['email' => $email])->first();
     }	
 }
 ?>

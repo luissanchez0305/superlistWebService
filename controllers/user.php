@@ -7,47 +7,59 @@ include $root."/controllers/helper.php";
 if(isset($_GET['type']) && (isset($_GET['e']) || isset($_GET['p']))) {
 	$type = $_GET['type'];
 	$email = $_GET['e'];
-	$password = $_GET['p'];
 	$usuarioMapper = $spot->mapper('Entity\Usuario');
 	if($type == 'cred'){
+		$password = $_GET['p'];
 		$usuario = $usuarioMapper->getByEmail($email);
 		$result = '0';
-		if($usuario->password == $password){
+		if($usuario && $usuario->password == $password){
 			$result = $usuario->id;
 		}
-		echo json_encode(dismount(array('id' => $result)));
+		echo json_encode(array('id' => $result));
 	}
 	else if($type == 'exists'){		
 		$usuario = $usuarioMapper->getByEmail($email);
 		$result = '0';
-		if(is_numeric($usuario->id)){
+		$name = '';
+		$lastname = '';
+		$email = '';
+		if($usuario && is_numeric($usuario->id)){
 			$result = $usuario->id;
+			$name = $usuario->nombre;
+			$lastname = $usuario->apellido;
+			$email = $usuario->email;
 		}
-		echo json_encode(dismount(array('id' => $result)));
+		echo json_encode(array('id' => $result, 'name' => $name, 'lastname' => $lastname, 'email' => $email));
 	}
 	else if($type == 'manage'){
+		$password = $_GET['p'];
 		$nombre = $_GET['n'];
 		$apellido = $_GET['a'];
 		$id = $_GET['i'];
-		
 		if($id > 0) {
 			$usuario = $usuarioMapper->get($id);
 			$usuario->email = $email;
-			$usuario->password = $password;
+			$usuario->password = strlen($password) > 0 ? $password : $usuario->password;
 			$usuario->nombre = $nombre;
 			$usuario->apellido = $apellido;
-			$usuarioMapper->update($usuario);
+			$result = $usuarioMapper->update($usuario);
 			
-			echo 'true';
+			if($result){
+				echo 'true';
+			}
+			else {
+				echo 'false';		
+			}
 		}
 		else {		
 			$usuario = $usuarioMapper->build([	
 				'email'  	=> $email,
 		        'password' 	=> $password,
 		        'nombre'  	=> $nombre,
-		        'apellido'  => $apellido
+		        'apellido'  => $apellido,
+		        'esAdmin' 	=> FALSE
 			]);	
-			$result = $usuarioMapper->insert($producto);
+			$result = $usuarioMapper->insert($usuario);
 			if($result){
 				echo 'true';
 			}
