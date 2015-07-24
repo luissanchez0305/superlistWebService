@@ -33,7 +33,7 @@ else if($_GET['type'] == 'manejar'){
 		$marcaId = $marca->id;
 	}
 	$result = false;
-	$productId = $_GET['_pId'];
+	$productId = $_GET['pId'];
 	if($productId == 0){
 		$producto = $productoMapper->build([	
 			'marcaid'  		=> $marcaId,
