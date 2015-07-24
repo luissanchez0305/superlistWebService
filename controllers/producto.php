@@ -45,11 +45,12 @@ else if($_GET['type'] == 'manejar'){
 	}
 	else {
 		$producto = $productoMapper->get($productId);
+
 		$producto->marcaid = $marcaId;
 		$producto->categoriaid = $_GET['cId'];
 		$producto->nombre = $_GET['name'];
-		$producto->image = isset($_GET['image']) ? $_GET['image'] : null;
-		$result = $productoMapper->update($product);
+		$producto->imagen = isset($_GET['image']) ? $_GET['image'] : null;
+		$result = $productoMapper->update($producto);
 	}
 	if($result){
 		echo 'true';
