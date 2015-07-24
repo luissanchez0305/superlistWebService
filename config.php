@@ -1,3 +1,3 @@
 <?php
-    $connString = 'mysql://dbuser:Goingup123@localhost/superlist';
+    $connString = 'mysql://dbuser:goingup123@localhost/superlist';
 ?>

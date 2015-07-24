@@ -1,7 +1,7 @@
 <?php
 header('Content-type: application/json');
 header("access-control-allow-origin: *");
-include "/db.php";
+include "db.php";
 
 $producto_lugarMapper = $spot->mapper('Entity\Producto_Lugar');	
 $pl = $producto_lugarMapper->getByProductoAndLugar($_GET['pid'], $_GET['lid']);
