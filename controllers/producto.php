@@ -51,7 +51,7 @@ else if($_GET['type'] == 'manejar'){
 		$producto->nombre = utf8_encode($_GET['name']);
 		$producto->imagen = isset($_GET['image']) ? $_GET['image'] : $producto->imagen;
 		$result = $productoMapper->update($producto);
-		echo utf8_encode($_GET['name']) . '-' . $producto->nombre;
+		echo $_GET['name'].'-'.utf8_encode($_GET['name']) . '-' . $producto->nombre;
 	}
 	/*if($result){
 		echo 'true';
