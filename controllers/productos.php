@@ -38,7 +38,7 @@ else if($_GET['type'] == 'producto'){
 else if($_GET['type'] == 'lista'){
 	$pls = $producto_lugarMapper->getByLugar($_GET['lid']);
 	$productosArray = array();
-	foreach ($pls as $pl) {
+	foreach ($pls->where(['cantidad >'=>0]) as $pl) {
 		$producto = $productoMapper->get($pl->productoid);
 		$marca = $marcaMapper->get($producto->marcaid);
 		array_push($productosArray, dismount(loadProducto($producto, $marca, $pl)));		

@@ -6,17 +6,22 @@ include "db.php";
 $producto_lugarMapper = $spot->mapper('Entity\Producto_Lugar');	
 $pl = $producto_lugarMapper->getByProductoAndLugar($_GET['pid'], $_GET['lid']);
 $result = false;
-if(is_null($pl->cantidad)){
+if($pl){
+	if($_GET['qty'] == '0'){
+		$producto_lugarMapper->delete($pl);
+	}
+	else{
+		$pl->cantidad = $_GET['qty'];
+		$result = $producto_lugarMapper->save($pl);
+	}
+}
+else{
 	$pl = $producto_lugarMapper->build([
 		'productoid' => (int)$_GET['pid'],
 		'lugarid' => (int)$_GET['lid'],
-		'cantidad' => (int)$_GET['qty']
+		'cantidad' => $_GET['qty'] ? (int)$_GET['qty'] : 0
 	]);
 	$result = $producto_lugarMapper->insert($pl);
-}
-else{
-	$pl->cantidad = $_GET['qty'];
-	$result = $producto_lugarMapper->save($pl);
 }
 
 if($result)
