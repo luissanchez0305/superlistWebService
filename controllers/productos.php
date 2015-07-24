@@ -26,7 +26,7 @@ else if($_GET['type'] == 'producto'){
 	$historialMapper = $spot->mapper('Entity\Historial');
 	$historial = $historialMapper->getByProductoAndLugar($producto->id, $_GET['lid']);
 	$productoModel = loadProducto($producto, $marca, $pl);
-	$date = $historial->fecha;
+	$date = $historial ? $historial->fecha : '';
 	if($date){
 		$productoModel->ultimaFecha = SpanishDate($date->getTimestamp());
 		$productoModel->ultimaCantidad = $historial->cantidad;
