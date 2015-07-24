@@ -22,31 +22,40 @@ if($_GET['type'] == 'marcas'){
 	}
 	echo json_encode($marcasArray);
 }
-else if($_GET['type'] == 'agregar'){
-	if($_GET['tmId'] == 0){
+else if($_GET['type'] == 'manejar'){
+	$marcaId = $_GET['tmId'];
+	$marcaNombre = $_GET['tmName'];
+	if($marcaId == 0 && strlen($marcaNombre) > 0){
 		$marca = $marcaMapper->build([
-			'nombre' =>  $_GET['tmName']
+			'nombre' =>  $marcaNombre
 		]);
 		$marcaMapper->insert($marca);
+		$marcaId = $marca->id;
 	}
-	$producto = $productoMapper->build([	
-		'marcaid'  		=> $_GET['tmId'],
-        'categoriaid' 	=> $_GET['cId'],
-        'nombre'  		=> $_GET['name'],
-        'imagen'  		=> isset($_GET['image']) ? $_GET['image'] : null
-	]);	
-	$result = $productoMapper->insert($producto);
+	$result = false;
+	$productId = $_GET['_pId'];
+	if($productId == 0){
+		$producto = $productoMapper->build([	
+			'marcaid'  		=> $marcaId,
+	        'categoriaid' 	=> $_GET['cId'],
+	        'nombre'  		=> $_GET['name'],
+	        'imagen'  		=> isset($_GET['image']) ? $_GET['image'] : null
+		]);	
+		$result = $productoMapper->insert($producto);
+	}
+	else {
+		$producto = $productoMapper->get($productId);
+		$producto->marcaid = $marcaId;
+		$producto->categoriaid = $_GET['cId'];
+		$producto->nombre = $_GET['name'];
+		$producto->image = isset($_GET['image']) ? $_GET['image'] : null;
+		$result = $productoMapper->update($product);
+	}
 	if($result){
 		echo 'true';
 	}
 	else {
 		echo 'false';		
 	}
-}
-else if($_GET['type'] == 'cargaEditar'){
-	$producto = $productoMapper;
-}
-else if($_GET['type'] == 'editar'){
-	
 }
 ?>
