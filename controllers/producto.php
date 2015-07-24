@@ -48,7 +48,7 @@ else if($_GET['type'] == 'manejar'){
 
 		$producto->marcaid = $marcaId;
 		$producto->categoriaid = $_GET['cId'];
-		$producto->nombre = $_GET['name'];
+		$producto->nombre = utf8_encode($_GET['name']);
 		$producto->imagen = isset($_GET['image']) ? $_GET['image'] : $producto->imagen;
 		$result = $productoMapper->update($producto);
 	}
