@@ -51,13 +51,12 @@ else if($_GET['type'] == 'manejar'){
 		$producto->nombre = $_GET['name'];
 		$producto->imagen = isset($_GET['image']) ? $_GET['image'] : $producto->imagen;
 		$result = $productoMapper->update($producto);
-		echo $_GET['name'].'-' . $producto->nombre;
 	}
-	/*if($result){
+	if($result){
 		echo 'true';
 	}
 	else {
 		echo 'false';		
-	}*/
+	}
 }
 ?>
