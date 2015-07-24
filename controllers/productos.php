@@ -71,8 +71,7 @@ else if($_GET['type'] == 'compra'){
 
 function loadProducto($producto, $marca, $producto_lugar){
 	$productoModel = new producto();
-	$productoModel->nombre = $producto->nombre;
-	echo '-'.$productoModel->nombre.'-';
+	$productoModel->nombre = utf8_encode($producto->nombre);
 	$productoModel->id = $producto->id;
 	$productoModel->imagen = !is_null($producto->imagen) ? '/uploads/users/' . $producto->imagen : '/uploads/default.jpg';
 	$productoModel->marcaId = $marca->id;
