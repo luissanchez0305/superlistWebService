@@ -3,6 +3,7 @@ header('Content-type: application/json');
 header("access-control-allow-origin: *");
 include "db.php";
 include $root."/models/marca.php";
+include $root."/models/producto.php";
 include $root."/controllers/helper.php";
 
 
@@ -22,9 +23,23 @@ if($_GET['type'] == 'marcas'){
 	}
 	echo json_encode($marcasArray);
 }
+else if($_GET['type'] == 'productos'){
+	$productos = $productoMapper->all();	
+	$productosArray = array();
+	
+	foreach ($productos as $producto) {
+		if (strpos(strtolower($producto->nombre), strtolower($_GET['q'])) !== false) {
+			$productoModel = new producto();
+			$productoModel->id = $producto->id;
+			$productoModel->nombre = $producto->nombre;
+			array_push($productosArray, dismount($productoModel));
+		}
+	}
+	echo json_encode($productosArray);
+}
 else if($_GET['type'] == 'manejar'){
 	$marcaId = $_GET['tmId'];
-	$marcaNombre = $_GET['tmName'];
+	$marcaNombre = isset($_GET['tmName']) ? $_GET['tmName'] : '';
 	if($marcaId == 0 && strlen($marcaNombre) > 0){
 		$marca = $marcaMapper->build([
 			'nombre' =>  $marcaNombre
@@ -45,8 +60,8 @@ else if($_GET['type'] == 'manejar'){
 	}
 	else {
 		$producto = $productoMapper->get($productId);
-
-		$producto->marcaid = $marcaId;
+		
+		$producto->marcaid = NULL;
 		$producto->categoriaid = $_GET['cId'];
 		$producto->nombre = $_GET['name'];
 		$producto->imagen = isset($_GET['image']) ? $_GET['image'] : $producto->imagen;

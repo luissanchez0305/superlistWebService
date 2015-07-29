@@ -74,9 +74,9 @@ function loadProducto($producto, $marca, $producto_lugar){
 	$productoModel->nombre = utf8_encode($producto->nombre);
 	$productoModel->id = $producto->id;
 	$productoModel->imagen = !is_null($producto->imagen) ? '/uploads/users/' . $producto->imagen : '/uploads/default.jpg';
-	$productoModel->marcaId = $marca->id;
-	$productoModel->marcaImagen = $marca->imagen;
-	$productoModel->marcaNombre = $marca->nombre;
+	//$productoModel->marcaId = $marca->id;
+	//$productoModel->marcaImagen = $marca->imagen;
+	//$productoModel->marcaNombre = $marca->nombre;
 	$productoModel->cantidad = $producto_lugar && !is_null($producto_lugar->cantidad) ? $producto_lugar->cantidad : 0;
 	
 	return $productoModel;

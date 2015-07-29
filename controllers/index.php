@@ -4,9 +4,11 @@ header("access-control-allow-origin: *");
 include "db.php";
 	
 $categoriaMapper = $spot->mapper('Entity\Categoria');
-$categorias = $categoriaMapper->all();
+$categoriaUsuarioMapper = $spot->mapper('Entity\Usuario_Categoria');
+$usuarioCategorias = $categoriaUsuarioMapper->getByUsuario($_GET['id']);
 $categoriasArray = array();
-foreach ($categorias as $categoria) {
+foreach ($usuarioCategorias as $usuarioCategoria){
+	$categoria = $categoriaMapper->get($usuarioCategoria->categoriaid);
 	$item = array(
 		"nombre" 	=> $categoria->nombre,
 		"id" 		=> $categoria->id,

@@ -14,6 +14,8 @@ require $root.'/entities/producto_lugar.php';
 require $root.'/mappers/producto_lugar.php';
 require $root.'/entities/producto.php';
 require $root.'/mappers/producto.php';
+require $root.'/entities/usuario_categoria.php';
+require $root.'/mappers/usuario_categoria.php';
 require $root.'/entities/usuario.php';
 require $root.'/mappers/usuario.php';
 $cfg = new \Spot\Config();
