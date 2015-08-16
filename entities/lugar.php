@@ -4,7 +4,7 @@ class Lugar extends \Spot\Entity
 {
     protected static $mapper = 'Entity\Mapper\Lugar';
 
-    protected static $table = 'lugar';
+    protected static $table = 'lugares';
     public static function fields()
     {
         return [
