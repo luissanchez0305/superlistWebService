@@ -26,16 +26,19 @@ if(isset($_GET['type']) && isset($_GET['uid'])){
 	}
 	else if($_GET['type'] == 'getfirst'){
 		$userlists = $usuario_lugarMapper->getByUser($_GET['uid']);
-		$userlist = $userlists->first();
-		$list = $lugarMapper->get($userlist->lugarid);
-		
-		$lugar = array(
-			'id' => $list->id,
-			'nombre' => $list->nombre,
-			'length' => count($userlists)
-		);
-		
-		echo json_encode($lugar);
+		foreach($userlists as $userlist){
+			$list = $lugarMapper->get($userlist->lugarid);
+			if($list->activo){			
+				$lugar = array(
+					'id' => $list->id,
+					'nombre' => $list->nombre,
+					'length' => count($userlists)
+				);	
+				echo json_encode($lugar);
+				break;
+			}
+				
+		}
 	}
 }
 ?>
