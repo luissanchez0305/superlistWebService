@@ -11,7 +11,8 @@ class Lugar extends \Spot\Entity
             'id'		=> ['type' => 'integer', 'primary' => true, 'autoincrement' => true],
             'nombre'  	=> ['type' => 'string', 'required' => true],
             'usuarioid' => ['type' => 'integer', 'required' => true],
-            'status'  	=> ['type' => 'boolean', 'required' => true]
+            'activo'  	=> ['type' => 'boolean', 'required' => true],
+            'llave'		=> ['type' => 'string', 'required' => true]
         ];
     }
 }

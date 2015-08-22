@@ -62,17 +62,9 @@ if(isset($_GET['type']) && (isset($_GET['e']) || isset($_GET['p']))) {
 			$result = $usuarioMapper->insert($usuario);
 			
 			if($result){				
-				$lugarMapper = $spot->mapper('Entity\Lugar');
-				$lugar = $lugarMapper->build([
-						'nombre' => $nombre
-						]);
-				$lugarMapper->insert($lugar);
+				$lugarMapper = $spot->mapper('Entity\Lugar');							
 				$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
-				$usuario_lugar = $usuario_lugarMapper->build([
-					'usuarioid' => $usuario->id,
-					'lugarid' => $lugar->id
-				]);
-				$usuario_lugarMapper->insert($usuario_lugar);
+				createListAddToUser($lugarMapper, $usuario_lugarMapper, $usuario->id, $nombre);				
 				echo 'true';
 			}
 			else {

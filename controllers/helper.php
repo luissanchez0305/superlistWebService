@@ -22,4 +22,28 @@ function SpanishDate($FechaStamp)
              "Agosto","Septiembre","Octubre","Noviembre","Diciembre");
    return "$dia de ". $mesesN[$mes] ." de $ano";
 }  
+function generateRandomString($length = 10) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+function createListAddToUser($lugarMapper, $usuario_lugarMapper, $uid, $name){
+	$random =generateRandomString();
+	$lugar = $lugarMapper->build([
+			'nombre' => $name,
+			'usuarioid' => $uid,
+			'llave' => $random,
+			'activo' => TRUE
+			]);
+	$lugarMapper->insert($lugar);
+	$usuario_lugar = $usuario_lugarMapper->build([
+		'usuarioid' => $uid,
+		'lugarid' => $lugar->id
+	]);
+	$usuario_lugarMapper->insert($usuario_lugar);
+}
 ?>

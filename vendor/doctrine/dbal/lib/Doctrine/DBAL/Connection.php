@@ -687,7 +687,8 @@ class Connection implements DriverConnection
         if (empty($data)) {
             return $this->executeUpdate('INSERT INTO ' . $tableExpression . ' ()' . ' VALUES ()');
         }
-
+		/*echo 'INSERT INTO ' . $tableExpression . ' (' . implode(', ', array_keys($data)) . ')' .
+            ' VALUES (' . implode(', ', array_fill(0, count($data), '?')) . ')';*/
         return $this->executeUpdate(
             'INSERT INTO ' . $tableExpression . ' (' . implode(', ', array_keys($data)) . ')' .
             ' VALUES (' . implode(', ', array_fill(0, count($data), '?')) . ')',
