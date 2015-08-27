@@ -9,7 +9,6 @@ $lugarMapper = $spot->mapper('Entity\Lugar');
 
 if($_GET['type'] == 'userlist' && isset($_GET['uid'])){
 	$userPlaces = $usuario_lugarMapper->getByUser($_GET['uid']);	
-	$lugarMapper = $spot->mapper('Entity\Lugar');
 	if(count($userPlaces) > 0){
 		$userPlacesArray = array();
 		foreach ($userPlaces as $userPlace) {
@@ -38,7 +37,6 @@ if($_GET['type'] == 'userlist' && isset($_GET['uid'])){
 	}
 }
 else if($_GET['type'] == 'adduserlist' && isset($_GET['uid']) && isset($_GET['n'])){
-	$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
 	createListAddToUser($lugarMapper, $usuario_lugarMapper, $_GET['uid'], $_GET['n']);
 	echo json_encode(array(
 		"status" => 'ok',
@@ -56,5 +54,28 @@ else if($_GET['type'] == 'editplace' && isset($_GET['pid'])){
 	else {
 		echo 'false';		
 	}	
+}
+else if($_GET['type'] == 'addlisttouser' && isset($_GET['uid']) && isset($_GET['k'])){
+	$user = $_GET['uid'];
+	$lugar = $lugarMapper->getBykey($_GET['k'])->first();
+	if(isset($lugar->id) && $lugar->usuarioid != $user){
+		$usuario_lugar = $usuario_lugarMapper->getByUserAndList($user,$lugar->id);
+		if(!isset($usuario_lugar->id)){
+			$usuario_lugar = $usuario_lugarMapper->build([
+				'usuarioid' => $user,
+				'lugarid'	=> $lugar->id
+			]);	
+			$result = $usuario_lugarMapper->insert($usuario_lugar);
+			if($result){
+				echo json_encode(array('response' => 'success'));
+			}	
+		}
+		else {
+			echo json_encode(array('response' => 'already'));			
+		}
+	}
+	else {
+		echo json_encode(array('response' => 'fail'));			
+	}
 }
 ?>

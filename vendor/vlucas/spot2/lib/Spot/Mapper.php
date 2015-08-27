@@ -615,7 +615,6 @@ class Mapper implements MapperInterface
     public function queryBuilder()
     {
         $query = new $this->_queryClass($this);
-
         return $query;
     }
 
@@ -631,7 +630,6 @@ class Mapper implements MapperInterface
     public function select($fields = "*")
     {
         $table = $this->table();
-
         return $this->queryBuilder()->select($fields)->from($table, $table);
     }
 

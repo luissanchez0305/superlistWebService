@@ -65,10 +65,10 @@ if(isset($_GET['type']) && (isset($_GET['e']) || isset($_GET['p']))) {
 				$lugarMapper = $spot->mapper('Entity\Lugar');							
 				$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
 				createListAddToUser($lugarMapper, $usuario_lugarMapper, $usuario->id, $nombre);				
-				echo 'true';
+				echo json_encode(array('result' => true, 'id' => $usuario->id));
 			}
-			else {
-				echo 'false';		
+			else {		
+				echo json_encode(array('result' => false, 'id' => 0));	
 			}
 		}
 	}

@@ -13,5 +13,15 @@ class Usuario_Lugar extends Mapper
     {
         return $this->where(['usuarioid' => $id]);
     }	
+	
+    /**
+     * Get Usuarios_Lugar by Usuario and Lugar
+     *
+     * @return \Sector\Usuario_Lugar
+     */
+    public function getByUserAndList($uid,$lid)
+    {
+        return $this->where(['usuarioid' => $uid])->andWhere(['lugarid' => $lid])->first();
+    }	
 }
 ?>

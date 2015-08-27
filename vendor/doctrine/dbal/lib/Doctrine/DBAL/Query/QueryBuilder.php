@@ -470,7 +470,6 @@ class QueryBuilder
         if (empty($select)) {
             return $this;
         }
-
         $selects = is_array($select) ? $select : func_get_args();
 
         return $this->add('select', $selects, false);

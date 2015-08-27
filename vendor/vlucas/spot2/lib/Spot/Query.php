@@ -150,7 +150,6 @@ class Query implements \Countable, \IteratorAggregate, \ArrayAccess
     public function select()
     {
         call_user_func_array([$this->builder(), 'select'], func_get_args());
-
         return $this;
     }
 
@@ -211,10 +210,8 @@ class Query implements \Countable, \IteratorAggregate, \ArrayAccess
     {
         if (!empty($where)) {
             $whereClause = implode(' ' . $type . ' ', $this->parseWhereToSQLFragments($where));
-			//echo $whereClause.'<br/>';
             $this->builder()->andWhere($whereClause);
         }
-
         return $this;
     }
 
@@ -411,10 +408,8 @@ class Query implements \Countable, \IteratorAggregate, \ArrayAccess
                 // Add to binds array and add to WHERE clause
                 $whereClause = $col . " " . $operator . " " . $builder->createPositionalParameter($value) . "";
             }
-
             $sqlFragments[] = $whereClause;
         }
-
         return $sqlFragments;
     }
 
