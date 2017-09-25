@@ -31,19 +31,19 @@ function generateRandomString($length = 10) {
     }
     return $randomString;
 }
-function createListAddToUser($lugarMapper, $usuario_lugarMapper, $uid, $name){
+function createListAddToUser($listaMapper, $usuario_listaMapper, $uid, $name){
 	$random =generateRandomString();
-	$lugar = $lugarMapper->build([
+	$lista = $listaMapper->build([
 			'nombre' => $name,
 			'usuarioid' => $uid,
 			'llave' => $random,
 			'activo' => TRUE
 			]);
-	$lugarMapper->insert($lugar);
-	$usuario_lugar = $usuario_lugarMapper->build([
+	$listaMapper->insert($lista);
+	$usuario_lista = $usuario_listaMapper->build([
 		'usuarioid' => $uid,
-		'lugarid' => $lugar->id
+		'listaid' => $lista->id
 	]);
-	$usuario_lugarMapper->insert($usuario_lugar);
+	$usuario_listaMapper->insert($usuario_lista);
 }
 ?>

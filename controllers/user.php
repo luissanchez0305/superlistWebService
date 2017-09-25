@@ -62,9 +62,9 @@ if(isset($_GET['type']) && (isset($_GET['e']) || isset($_GET['p']))) {
 			$result = $usuarioMapper->insert($usuario);
 			
 			if($result){				
-				$lugarMapper = $spot->mapper('Entity\Lugar');							
-				$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
-				createListAddToUser($lugarMapper, $usuario_lugarMapper, $usuario->id, $nombre);				
+				$listaMapper = $spot->mapper('Entity\Lista');							
+				$usuario_listaMapper = $spot->mapper('Entity\Usuario_Lista');
+				createListAddToUser($listaMapper, $usuario_listaMapper, $usuario->id, $nombre);				
 				echo json_encode(array('result' => true, 'id' => $usuario->id));
 			}
 			else {		

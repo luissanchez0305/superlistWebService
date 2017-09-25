@@ -1,10 +1,10 @@
 <?php
 namespace Entity;
-class Lugar extends \Spot\Entity
+class Lista extends \Spot\Entity
 {
-    protected static $mapper = 'Entity\Mapper\Lugar';
+    protected static $mapper = 'Entity\Mapper\Lista';
 
-    protected static $table = 'lugares';
+    protected static $table = 'listas';
     public static function fields()
     {
         return [

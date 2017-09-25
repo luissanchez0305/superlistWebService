@@ -6,35 +6,35 @@ include $root."/controllers/helper.php";
 include $root."/models/lista.php";
 
 if(isset($_GET['type']) && isset($_GET['uid'])){
-	$lugarMapper = $spot->mapper('Entity\Lugar');							
-	$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
+	$listaMapper = $spot->mapper('Entity\Lista');							
+	$usuario_listaMapper = $spot->mapper('Entity\Usuario_Lista');
 	
 	if($_GET['type'] == 'userlists'){
-		$userlists = $usuario_lugarMapper->getByUser($_GET['uid']);
-		$lugaresArray = array();
+		$userlists = $usuario_listaMapper->getByUser($_GET['uid']);
+		$listasArray = array();
 		foreach ($userlists as $userlist) {
-			$list = $lugarMapper->get($userlist->lugarid);
+			$list = $listaMapper->get($userlist->listaid);
 			if($list->activo){
-				$lugarModel = new lista();
-				$lugarModel->id = $userlist->lugarid;
-				$lugarModel->nombre = $list->nombre;
+				$listaModel = new lista();
+				$listaModel->id = $userlist->listaid;
+				$listaModel->nombre = $list->nombre;
 				
-				array_push($lugaresArray, dismount($lugarModel));
+				array_push($listasArray, dismount($listaModel));
 			}
 		}
-		echo json_encode($lugaresArray);		
+		echo json_encode($listasArray);		
 	}
 	else if($_GET['type'] == 'getfirst'){
-		$userlists = $usuario_lugarMapper->getByUser($_GET['uid']);
+		$userlists = $usuario_listaMapper->getByUser($_GET['uid']);
 		foreach($userlists as $userlist){
-			$list = $lugarMapper->get($userlist->lugarid);
+			$list = $listaMapper->get($userlist->listaid);
 			if($list->activo){			
-				$lugar = array(
+				$lista = array(
 					'id' => $list->id,
 					'nombre' => $list->nombre,
 					'length' => count($userlists)
 				);	
-				echo json_encode($lugar);
+				echo json_encode($lista);
 				break;
 			}
 				

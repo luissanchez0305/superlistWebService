@@ -2,12 +2,12 @@
 namespace Entity\Mapper;
 use Spot\Mapper;
 
-class Usuario_Lugar extends Mapper
+class Usuario_Lista extends Mapper
 {
     /**
-     * Get Usuarios_Lugar by Usuario
+     * Get Usuarios_Lista by Usuario
      *
-     * @return \Sector\Usuario_Lugar
+     * @return \Sector\Usuario_Lista
      */
     public function getByUser($id)
     {
@@ -15,13 +15,13 @@ class Usuario_Lugar extends Mapper
     }	
 	
     /**
-     * Get Usuarios_Lugar by Usuario and Lugar
+     * Get Usuarios_Lista by Usuario and Lista
      *
-     * @return \Sector\Usuario_Lugar
+     * @return \Sector\Usuario_Lista
      */
     public function getByUserAndList($uid,$lid)
     {
-        return $this->where(['usuarioid' => $uid])->andWhere(['lugarid' => $lid])->first();
+        return $this->where(['usuarioid' => $uid])->andWhere(['listaid' => $lid])->first();
     }	
 }
 ?>

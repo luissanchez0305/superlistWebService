@@ -2,10 +2,10 @@
 namespace Entity\Mapper;
 use Spot\Mapper;
 
-class Lugar extends Mapper
+class Lista extends Mapper
 {
     /**
-     * Get Lugar by Key
+     * Get Lista by Key
      *
      * @return \Sector\Query
      */

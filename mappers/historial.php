@@ -6,13 +6,13 @@ class Historial extends Mapper
 {
  
  	/**
-     * Get Historial by Lugar and Producto
+     * Get Historial by Lista and Producto
      *
      * @return \Sector\Historial
      */
-    public function getByProductoAndLugar($productoid, $lugarid)
+    public function getByProductoAndLista($productoid, $listaid)
     {
-        return $this->where(['productoid' => $productoid])->andWhere(['lugarid' => $lugarid])->order(['fecha' => 'DESC'])->first();
+        return $this->where(['productoid' => $productoid])->andWhere(['listaid' => $listaid])->order(['fecha' => 'DESC'])->first();
     }	
 }
 ?>

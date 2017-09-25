@@ -13,7 +13,7 @@ class Usuario extends \Spot\Entity
             'nombre' 	=> ['type' => 'string', 'required' => false],
             'apellido'  => ['type' => 'string', 'required' => false],
             'password'  => ['type' => 'string', 'required' => true],
-        	'esAdmin'	=> ['type' => 'boolean', 'required' => true]
+        	'admin'	    => ['type' => 'boolean', 'required' => true]
         ];
     }
 }

@@ -2,26 +2,26 @@
 namespace Entity\Mapper;
 use Spot\Mapper;
 
-class Producto_Lugar extends Mapper
+class Producto_Lista extends Mapper
 {
     /**
-     * Get Producto by Lugar and Producto
+     * Get Producto by Lista and Producto
      *
-     * @return \Sector\Producto_Lugar
+     * @return \Sector\Producto_Lista
      */
-    public function getByProductoAndLugar($productoid, $lugarid)
+    public function getByProductoAndLista($productoid, $listaid)
     {
-        return $this->where(['productoid' => $productoid])->andWhere(['lugarid' => $lugarid])->first();
+        return $this->where(['productoid' => $productoid])->andWhere(['listaid' => $listaid])->first();
     }	
 	
     /**
-     * Get Producto by Lugar
+     * Get Producto by Lista
      *
      * @return \Sector\Query
      */
-    public function getByLugar($lugarid)
+    public function getByLista($listaid)
     {
-        return $this->where(['lugarid' => $lugarid]);
+        return $this->where(['listaid' => $listaid]);
     }	
 }
 ?>

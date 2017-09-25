@@ -4,19 +4,19 @@ header("access-control-allow-origin: *");
 include "db.php";
 include $root."/controllers/helper.php";
 
-$usuario_lugarMapper = $spot->mapper('Entity\Usuario_Lugar');
-$lugarMapper = $spot->mapper('Entity\Lugar');
+$usuario_listaMapper = $spot->mapper('Entity\Usuario_Lista');
+$listaMapper = $spot->mapper('Entity\Lista');
 
 if($_GET['type'] == 'userlist' && isset($_GET['uid'])){
-	$userPlaces = $usuario_lugarMapper->getByUser($_GET['uid']);	
+	$userPlaces = $usuario_listaMapper->getByUser($_GET['uid']);	
 	if(count($userPlaces) > 0){
 		$userPlacesArray = array();
 		foreach ($userPlaces as $userPlace) {
-			$place = $lugarMapper->get($userPlace->lugarid);
+			$place = $listaMapper->get($userPlace->listaid);
 			$item = array(
 				"id" 			=> $userPlace->id,
-				"nombreLugar" 	=> $place->nombre,
-				"lugarid" 		=> $userPlace->lugarid,
+				"nombreLista" 	=> $place->nombre,
+				"listaid" 		=> $userPlace->listaid,
 				"ownerid"		=> $place->usuarioid,
 				"key"			=> $place->llave,
 				"activo"		=> $place->activo
@@ -37,16 +37,16 @@ if($_GET['type'] == 'userlist' && isset($_GET['uid'])){
 	}
 }
 else if($_GET['type'] == 'adduserlist' && isset($_GET['uid']) && isset($_GET['n'])){
-	createListAddToUser($lugarMapper, $usuario_lugarMapper, $_GET['uid'], $_GET['n']);
+	createListAddToUser($listaMapper, $usuario_listaMapper, $_GET['uid'], $_GET['n']);
 	echo json_encode(array(
 		"status" => 'ok',
 		"msg" => 'empty'
 	));
 }
 else if($_GET['type'] == 'editplace' && isset($_GET['pid'])){
-	$lugar = $lugarMapper->get($_GET['pid']);
-	$lugar->activo = !$lugar->activo;
-	$result = $lugarMapper->update($lugar);
+	$lista = $listaMapper->get($_GET['pid']);
+	$lista->activo = !$lista->activo;
+	$result = $listaMapper->update($lista);
 	
 	if($result){
 		echo 'true';
@@ -57,15 +57,15 @@ else if($_GET['type'] == 'editplace' && isset($_GET['pid'])){
 }
 else if($_GET['type'] == 'addlisttouser' && isset($_GET['uid']) && isset($_GET['k'])){
 	$user = $_GET['uid'];
-	$lugar = $lugarMapper->getBykey($_GET['k'])->first();
-	if(isset($lugar->id) && $lugar->usuarioid != $user){
-		$usuario_lugar = $usuario_lugarMapper->getByUserAndList($user,$lugar->id);
-		if(!isset($usuario_lugar->id)){
-			$usuario_lugar = $usuario_lugarMapper->build([
+	$lista = $listaMapper->getBykey($_GET['k'])->first();
+	if(isset($lista->id) && $lista->usuarioid != $user){
+		$usuario_lista = $usuario_listaMapper->getByUserAndList($user,$lista->id);
+		if(!isset($usuario_lista->id)){
+			$usuario_lista = $usuario_listaMapper->build([
 				'usuarioid' => $user,
-				'lugarid'	=> $lugar->id
+				'listaid'	=> $lista->id
 			]);	
-			$result = $usuario_lugarMapper->insert($usuario_lugar);
+			$result = $usuario_listaMapper->insert($usuario_lista);
 			if($result){
 				echo json_encode(array('response' => 'success'));
 			}	
